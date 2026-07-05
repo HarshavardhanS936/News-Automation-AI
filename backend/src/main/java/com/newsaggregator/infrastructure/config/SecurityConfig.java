@@ -74,7 +74,7 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173")); // Vite default port
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "https://news-automation-ai.vercel.app")); // Vite default port & Vercel
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
