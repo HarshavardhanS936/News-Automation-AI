@@ -1,43 +1,31 @@
-import axios from 'axios';
-
-const API_URL =
-  import.meta.env.VITE_API_URL || "https://news-automation-ai-1.onrender.com";
-
-const getHeaders = () => {
-  const token = localStorage.getItem('token');
-  return {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  };
-};
+import { api } from './api';
 
 export const adminService = {
   getUsers: async () => {
-    const response = await axios.get(`${API_URL}/users`, getHeaders());
+    const response = await api.get(`/admin/users`);
     return response.data;
   },
   
   deleteUser: async (id: number) => {
-    await axios.delete(`${API_URL}/users/${id}`, getHeaders());
+    await api.delete(`/admin/users/${id}`);
   },
   
   getArticles: async () => {
-    const response = await axios.get(`${API_URL}/articles`, getHeaders());
+    const response = await api.get(`/admin/articles`);
     return response.data;
   },
   
   deleteArticle: async (id: number) => {
-    await axios.delete(`${API_URL}/articles/${id}`, getHeaders());
+    await api.delete(`/admin/articles/${id}`);
   },
   
   refreshNews: async () => {
-    const response = await axios.post(`${API_URL}/articles/refresh`, {}, getHeaders());
+    const response = await api.post(`/admin/articles/refresh`, {});
     return response.data;
   },
   
   getSystemStatus: async () => {
-    const response = await axios.get(`${API_URL}/system/status`, getHeaders());
+    const response = await api.get(`/admin/system/status`);
     return response.data;
   }
 };
