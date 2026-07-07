@@ -8,24 +8,29 @@ export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError('');
     try {
       const response = await authService.register({ username, email, password });
       login(response.token, response.username, response.roles);
       navigate('/');
     } catch (err: any) {
       const errorData = err.response?.data;
-      if (typeof errorData === 'object' && errorData !== null) {
+      if (typeof errorData === 'object' && errorData !== null && Object.keys(errorData).length > 0) {
         // Validation errors
         const firstError = Object.values(errorData)[0] as string;
         setError(firstError || 'Registration failed');
       } else {
-        setError('Registration failed');
+        setError('Registration failed. The server might be unreachable.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -79,9 +84,12 @@ export default function Register() {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+              disabled={isLoading}
+              className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white transition-colors ${
+                isLoading ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+              }`}
             >
-              Sign up
+              {isLoading ? 'Signing up...' : 'Sign up'}
             </button>
           </div>
           <div className="text-sm text-center">

@@ -24,7 +24,7 @@ public class NewsArticle {
     @Column(columnDefinition = "LONGTEXT", nullable = false)
     private String content;
 
-    @Column(nullable = false, unique = true, length = 1000)
+    @Column(nullable = false, unique = true, length = 768)
     private String url;
 
     @Column(name = "image_url", length = 1000)
