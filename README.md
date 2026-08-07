@@ -60,7 +60,7 @@ There are no hardcoded default credentials for security reasons. Instead, the sy
 To log in as an administrator:
 1. Start the application and go to the **Registration** page on the frontend.
 2. Register a new account with the exact username: **`admin`**
-3. Choose any password you prefer.
-4. Log in with the username `admin` and the password you just created.
+3. Set the password to: **`123456789`**
+4. Log in with the username `admin` and the password `123456789`.
 
 The system will automatically detect the username `admin` during registration and assign the `ROLE_ADMIN` permissions to your account. You will then have access to all admin-specific features such as managing users, managing articles, and viewing system status.
